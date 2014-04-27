@@ -1,12 +1,7 @@
 #include <std.h>
 #include <string.h>
 #include "main.h"
-#include "net.h"
-#include "drv_ecan.h"
-#include "drv_spi.h"
-#include "drv_sci.h"
-#include "drv_i2c.h"
-#include "global.h"
+
 
 // 是否在Flash上运行
 #define FLASH_RUN 0

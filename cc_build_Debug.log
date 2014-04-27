@@ -1,3 +1,9 @@
-----------------------------  xc_flash.pjt - Debug  ----------------------------
+------------------------------  BIOS.pjt - Debug  ------------------------------
+[main.c] "C:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -fr"E:/MC/BIOS_Demo/Debug" -i"E:/MC/BIOS_Demo/inc" -i"E:/MC/BIOS_Demo/tcf" -d"_DEBUG" -d"LARGE_MODEL" -ml -mt -v28 --float_support=fpu32 -@"../Debug.lkf" "main.c"
+
+[Linking...] "C:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -@"Debug.lkf"
+<Linking>
+warning: creating output section "codestart" without a SECTIONS specification
+
 Build Complete,
-  0 Errors, 0 Warnings, 0 Remarks.
+  0 Errors, 1 Warnings, 0 Remarks.

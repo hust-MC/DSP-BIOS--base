@@ -2,5 +2,5 @@
 # This file contains tconf options for file "bios.tcf",
 # for use by the Gconf graphical configuration tool.
 # The options are exported from the following CCS project: 
-# E:\MC\xc_flash\xc_flash.pjt, "Debug" configuration.
+# E:\MC\BIOS_Demo\BIOS.pjt, "Debug" configuration.
 -Dconfig.importPath="D:\CCStudio_v3.3/bios_5_41_13_42/packages;"

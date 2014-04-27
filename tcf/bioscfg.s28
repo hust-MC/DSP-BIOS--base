@@ -5,7 +5,7 @@
 ;; INPUT bios.cdb
 
 ;; CONFIGURATION/VERSION INFORMATION
-	.asg "Thu Apr 24 17:09:57 2014", VERS$DATE
+	.asg "Sun Apr 27 15:27:13 2014", VERS$DATE
 
 ;; PROLOGUE
 	.include bioscfg.h28
