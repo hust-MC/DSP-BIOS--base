@@ -1,0 +1,120 @@
+utils.loadPlatform("ti.platforms.ezdsp28335");
+
+/* The following DSP/BIOS Features are enabled.  */
+bios.enableRealTimeAnalysis(prog);
+bios.enableRtdx(prog);
+bios.enableTskManager(prog);
+
+
+// MEM - create heap
+bios.MEM.NOMEMORYHEAPS = 0;
+
+// MEM - define SRAM
+bios.MEM.instance("SRAM").base = 0x100000;
+bios.MEM.instance("SRAM").len = 0x80000;
+bios.MEM.instance("SRAM").createHeap = 1;
+bios.MEM.instance("SRAM").heapSize = 0x0800;
+bios.MEM.instance("SRAM").space = "code/data";
+bios.MEM.MALLOCSEG = prog.get("SRAM");
+bios.MEM.BIOSOBJSEG = prog.get("SRAM");
+bios.MEM.ARGSSEG = prog.get("SRAM");
+bios.MEM.GBLINITSEG = prog.get("SRAM");
+bios.MEM.TRCDATASEG = prog.get("SRAM");
+bios.MEM.SYSDATASEG = prog.get("SRAM");
+bios.MEM.OBJSEG = prog.get("SRAM");
+bios.MEM.BSSSEG = prog.get("SRAM");
+bios.MEM.EBSSSEG = prog.get("SRAM");
+bios.MEM.BIOSSEG = prog.get("SRAM");
+bios.MEM.CINITSEG = prog.get("SRAM");
+bios.MEM.SYSINITSEG = prog.get("SRAM");
+bios.MEM.RTDXTEXTSEG = prog.get("SRAM");
+bios.MEM.HWISEG = prog.get("SRAM");
+bios.MEM.TEXTSEG = prog.get("SRAM");
+bios.MEM.SWITCHSEG = prog.get("SRAM");
+bios.MEM.PINITSEG = prog.get("SRAM");
+bios.MEM.ECONSTSEG = prog.get("SRAM");
+bios.MEM.CONSTSEG = prog.get("SRAM");
+bios.MEM.DATASEG = prog.get("SRAM");
+bios.MEM.CIOSEG = prog.get("SRAM");
+
+// LOG
+bios.LOG.create("LOG_trace");
+bios.LOG.instance("LOG_trace").bufLen = 128;
+bios.LOG.instance("LOG_trace").bufSeg = prog.get("SRAM");
+
+// TSK - CAL
+bios.TSK.create("TSK_cal");
+bios.TSK.instance("TSK_cal").order = 1;
+bios.TSK.instance("TSK_cal").priority = 15;
+bios.TSK.instance("TSK_cal").stackSize = 640;
+bios.TSK.instance("TSK_cal").fxn = prog.extern("taskCal");
+
+// TSK - NET
+bios.TSK.create("TSK_net");
+bios.TSK.instance("TSK_net").order = 2;
+bios.TSK.instance("TSK_net").priority = 14;
+bios.TSK.instance("TSK_net").fxn = prog.extern("taskNet");
+bios.TSK.instance("TSK_net").stackSize = 640;
+
+// TSK - CAN
+bios.TSK.create("TSK_can");
+bios.TSK.instance("TSK_can").order = 3;
+bios.TSK.instance("TSK_can").fxn = prog.extern("taskCan");
+bios.TSK.instance("TSK_can").priority = 13;
+bios.TSK.instance("TSK_can").stackSize = 640;
+
+// TSK - SCI
+bios.TSK.create("TSK_sci");
+bios.TSK.instance("TSK_sci").order = 4;
+bios.TSK.instance("TSK_sci").priority = 12;
+bios.TSK.instance("TSK_sci").stackSize = 640;
+bios.TSK.instance("TSK_sci").fxn = prog.extern("taskSCI");
+
+// HWI - NET1 RX
+bios.PIE.instance("PIE_INT1_4").fxn = prog.extern("INT1_NET_ISR");
+bios.PIE.instance("PIE_INT1_4").useDispatcher = 1;
+
+// HWI - NET2 RX
+bios.PIE.instance("PIE_INT1_5").fxn = prog.extern("INT2_NET_ISR");
+bios.PIE.instance("PIE_INT1_5").useDispatcher = 1;
+
+// HWI - SCIB RX
+bios.PIE.instance("PIE_INT9_3").fxn = prog.extern("SCIB_RX_INT");
+bios.PIE.instance("PIE_INT9_3").useDispatcher = 1;
+
+// HWI - SCIB TX
+bios.PIE.instance("PIE_INT9_4").fxn = prog.extern("SCIB_TX_INT");
+bios.PIE.instance("PIE_INT9_4").useDispatcher = 1;
+
+// HWI - CANA & CANB
+bios.PIE.instance("PIE_INT9_5").fxn = prog.extern("INT_CANA_ISR");
+bios.PIE.instance("PIE_INT9_5").useDispatcher = 1;
+bios.PIE.instance("PIE_INT9_7").fxn = prog.extern("INT_CANB_ISR");
+bios.PIE.instance("PIE_INT9_7").useDispatcher = 1;
+bios.MEM.create("L7SARAM");
+bios.MEM.instance("L47SARAM").len = 0x3c00;
+bios.MEM.instance("L7SARAM").base = 0x00fc00;
+bios.MEM.instance("L7SARAM").len = 0x0400;
+bios.MEM.instance("L7SARAM").createHeap = 0;
+bios.MEM.instance("L47SARAM").space = "data";
+bios.MEM.instance("L03SARAM").space = "code";
+bios.SEM.create("SEM_net");
+bios.SEM.create("SEM_can");
+bios.SEM.instance("SEM_can").count = 1;
+bios.PIE.instance("PIE_INT1_4").fxn = prog.extern("HWI_unused", "asm");
+bios.PIE.instance("PIE_INT1_5").fxn = prog.extern("HWI_unused", "asm");
+bios.PIE.instance("PIE_INT9_3").fxn = prog.extern("HWI_unused", "asm");
+bios.PIE.instance("PIE_INT9_4").fxn = prog.extern("HWI_unused", "asm");
+bios.PIE.instance("PIE_INT9_5").fxn = prog.extern("HWI_unused", "asm");
+bios.PIE.instance("PIE_INT9_7").fxn = prog.extern("HWI_unused", "asm");
+bios.TSK.instance("TSK_idle").order = 1;
+bios.TSK.instance("TSK_cal").destroy();
+bios.TSK.instance("TSK_sci").order = 3;
+bios.TSK.instance("TSK_can").destroy();
+bios.TSK.instance("TSK_sci").order = 2;
+bios.TSK.instance("TSK_net").destroy();
+bios.TSK.instance("TSK_sci").destroy();
+// !GRAPHICAL_CONFIG_TOOL_SCRIPT_INSERT_POINT!
+
+prog.gen();
+

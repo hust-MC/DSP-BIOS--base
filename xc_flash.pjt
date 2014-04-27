@@ -1,0 +1,93 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="E:\xc_flash\"
+ProjectType=Executable
+CPUFamily=TMS320C28XX
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="DspBiosBuilder"
+Tool="Linker"
+Config="Debug"
+Config="Release"
+
+[Source Files]
+Source="lib\IQmath_fpu32.lib"
+Source="lib\rts2800_fpu32.lib"
+Source="log.txt"
+Source="src\cal_div32.asm"
+Source="src\cal_magnetic_calcu.asm"
+Source="src\cal_qcoslt.asm"
+Source="src\cal_qsinlt.asm"
+Source="src\cal_qsqrt.asm"
+Source="src\drv_ecan.c"
+Source="src\drv_i2c.c"
+Source="src\drv_ksz8851.c"
+Source="src\drv_sci.c"
+Source="src\drv_spi.c"
+Source="src\DSP2833x_CodeStartBranch.asm"
+Source="src\DSP2833x_GlobalVariableDefs.c"
+Source="src\DSP2833x_PieCtrl.c"
+Source="src\DSP2833x_SysCtrl.c"
+Source="src\DSP2833x_usDelay.asm"
+Source="src\DSP2833x_Xintf.c"
+Source="src\global.c"
+Source="src\main.c"
+Source="src\net.c"
+Source="src\net_arp.c"
+Source="src\net_ethernet.c"
+Source="src\net_igmp.c"
+Source="src\net_ip.c"
+Source="src\net_xc.c"
+Source="src\task_cal.c"
+Source="src\task_can.c"
+Source="src\task_net.c"
+Source="src\task_sci.c"
+Source="tcf\bios.tcf"
+Source="cmd\app.cmd"
+Source="cmd\DSP2833x_Headers_BIOS.cmd"
+Source="tcf\bioscfg.cmd"
+
+[Generated Files]
+Source="tcf\bioscfg.s28"
+Source="tcf\bioscfg_c.c"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"$(Proj_dir)\Debug" -i"$(Proj_dir)\inc" -i"$(Proj_dir)\tcf" -d"_DEBUG" -d"LARGE_MODEL" -ml -mt -v28 --float_support=fpu32
+
+["Compiler" Settings: "Release"]
+Options=-o3 -fr"$(Proj_dir)\Release" -d"LARGE_MODEL" -ml -v28
+
+["DspBiosBuilder" Settings: "Debug"]
+Options=-Dconfig.importPath="D:\CCStudio_v3.3/bios_5_41_13_42/packages;"
+
+["Linker" Settings: "Debug"]
+Options=-c -m".\Debug\xc.map" -o".\Debug\xc.out" -stack800 -w -x
+
+["Linker" Settings: "Release"]
+Options=-c -m".\Release\xc.map" -o".\Release\xc.out" -w -x
+
+["log.txt" Settings: "Debug"]
+ExcludeFromBuild=true
+
+["log.txt" Settings: "Release"]
+ExcludeFromBuild=true
+
+["cmd\app.cmd" Settings: "Debug"]
+LinkOrder=1
+
+["cmd\app.cmd" Settings: "Release"]
+LinkOrder=1
+
+["cmd\DSP2833x_Headers_BIOS.cmd" Settings: "Debug"]
+LinkOrder=1
+
+["cmd\DSP2833x_Headers_BIOS.cmd" Settings: "Release"]
+LinkOrder=1
+
+["tcf\bioscfg.cmd" Settings: "Debug"]
+LinkOrder=1
+
+["tcf\bioscfg.cmd" Settings: "Release"]
+LinkOrder=1
+
